@@ -1,0 +1,1000 @@
+<!doctype html>
+<html lang="es-UY">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src 'none'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <title>Guía de Oficina</title>
+  <style>
+    :root {
+      --ink:#1e3444; --navy:#1c3446; --teal:#27685e; --green-bg:#e5eee8;
+      --paper:#fffefa; --canvas:#f5f3ed; --line:#d8d9cd; --muted:#536269;
+      --serif:Georgia, "Times New Roman", serif;
+      --sans:"Source Sans 3","Segoe UI",Arial,sans-serif;
+      --mono:"IBM Plex Mono",Consolas,monospace;
+      font-family:var(--sans); color:var(--ink); background:var(--canvas);
+      font-size:16px; line-height:1.5;
+    }
+    * {box-sizing:border-box}
+    body {margin:0}
+    button,input,textarea,select {font:inherit; color:inherit}
+    button {cursor:pointer}
+    button:disabled {opacity:.62; cursor:default}
+    a {color:var(--teal)}
+    :focus-visible {outline:3px solid #b65419; outline-offset:3px}
+    [hidden] {display:none!important}
+    .sr {position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap}
+    .skip {position:fixed; z-index:4; left:1rem; top:-5rem; padding:.6rem 1rem; background:white}
+    .skip:focus {top:.4rem}
+    .wrap {width:min(1240px, calc(100% - 6vw)); margin:0 auto}
+    .mast {background:var(--navy); color:#fffefa}
+    .mast-inner,.brand,.actions,.metadata,.sectionbar,.panel-tools,.index-heading,.notice-row,.mobile-bar {display:flex; align-items:center}
+    .mast-inner {min-height:64px; justify-content:space-between; gap:16px}
+    .brand {gap:12px; font-family:var(--serif); font-size:25px; letter-spacing:-.035em}
+    .brand small {border-left:1px solid #91a5af; padding-left:14px; margin-left:3px; font:13px var(--sans); letter-spacing:.025em; color:#e0e7e8}
+    .book {position:relative; display:inline-block; width:26px; height:21px; color:#cfdbbd}
+    .book::before,.book::after {content:""; position:absolute; width:10px; height:16px; top:1px; border:1.8px solid; border-radius:1px 4px 1px 1px; transform:skewY(11deg)}
+    .book::before {left:1px}
+    .book::after {right:1px; transform:skewY(-11deg); border-radius:4px 1px 1px 1px}
+    .edition {color:#d8e2dc; font:12px var(--mono); letter-spacing:.025em}
+    .cover {padding:clamp(22px,3.6vw,48px) 0 0}
+    h1,h2,h3,h4,h5,h6,p {margin:0}
+    .cover h1 {font:normal clamp(39px,4.5vw,62px)/1.1 var(--serif); letter-spacing:-.055em}
+    .cover p {font-size:clamp(15px,1.45vw,18px); color:var(--muted); margin-top:8px}
+    .sectionbar {gap:clamp(8px,2.5vw,34px); border-bottom:1px solid #aeb6af; margin-top:clamp(16px,2.4vw,32px)}
+    .sectionbar button {position:relative; background:none; border:0; border-bottom:3px solid transparent; color:var(--muted); padding:12px 3px; font-weight:600; display:flex; gap:9px; align-items:center}
+    .sectionbar [aria-current="page"] {color:var(--teal); border-bottom-color:var(--teal)}
+    .sectionbar small {font:12px var(--mono); color:var(--muted)}
+    .sectionbar button:hover,.doc-link:hover {background:#e8ebe2}
+    main {display:grid; grid-template-columns:minmax(225px,27%) minmax(0,1fr); gap:clamp(18px,2.7vw,42px); padding:clamp(18px,2.3vw,34px) 0 5rem}
+    .index {min-width:0; align-self:start; position:sticky; top:14px; max-height:calc(100vh - 28px); overflow:auto; scrollbar-width:thin; scrollbar-color:#aeb6af transparent; padding:2px 4px 12px}
+    .index-heading {justify-content:space-between; gap:8px; margin-bottom:15px}
+    .index-heading h2 {font:normal 25px var(--serif); letter-spacing:-.035em}
+    .search-box {position:relative}
+    .search-box::before {content:""; position:absolute; left:13px; top:15px; width:10px; height:10px; border:1.7px solid var(--muted); border-radius:50%; pointer-events:none}
+    .search-box::after {content:""; position:absolute; left:23px; top:26px; width:7px; height:2px; background:var(--muted); transform:rotate(45deg); pointer-events:none}
+    input,select,textarea {border:1px solid #929e98; background:var(--paper); border-radius:4px}
+    input,select {width:100%; min-height:44px; padding:8px 10px}
+    input[type=search] {padding-left:38px}
+    .filter {display:grid; gap:4px; margin-top:12px; font-size:14px; font-weight:600}
+    .filter select {font-weight:400}
+    .result {color:var(--muted); font-size:13px; margin:13px 0}
+    .group-title {display:flex; align-items:center; gap:8px; color:var(--muted); font:600 12px var(--sans); text-transform:uppercase; letter-spacing:.085em; margin:22px 0 8px 3px}
+    .group-title::after {content:""; flex:1; height:1px; background:var(--line)}
+    .group-title span {font:12px var(--mono); letter-spacing:0}
+    .doc-link {display:block; width:100%; position:relative; border:0; border-left:3px solid transparent; border-radius:0 3px 3px 0; background:transparent; text-align:left; padding:10px 13px; min-height:44px; overflow-wrap:anywhere}
+    .doc-link[aria-current=true] {background:var(--green-bg); border-left-color:var(--teal); color:#194e48; font-weight:650}
+    .doc-link small {display:block; font:12px/1.5 var(--mono); color:var(--muted); margin-top:3px}
+    .folio {align-self:start; min-width:0; border:1px solid var(--line); border-top:3px solid var(--navy); border-radius:1px; background:var(--paper); box-shadow:0 2px 5px #243c4408}
+    .folio-head,.document,.work,.empty {padding:clamp(18px,2.7vw,40px)}
+    .folio-head {border-bottom:1px solid var(--line)}
+    .metadata {justify-content:space-between; gap:10px; flex-wrap:wrap; margin-bottom:15px}
+    .context {font:650 12px var(--sans); color:var(--teal); text-transform:uppercase; letter-spacing:.105em}
+    .origin {font-size:12px; display:inline-flex; align-items:center; gap:7px; color:var(--muted)}
+    .origin::before {content:""; display:inline-block; width:8px; height:8px; border:1.5px solid currentColor; border-radius:50%}
+    .origin[data-disco=true] {color:var(--teal)}
+    .origin[data-disco=true]::before {background:var(--teal)}
+    #documento-titulo {font:normal clamp(29px,3.4vw,47px)/1.1 var(--serif); letter-spacing:-.045em; overflow-wrap:anywhere}
+    .path {display:block; margin:9px 0 0; font:13px/1.6 var(--mono); color:var(--muted); overflow-wrap:anywhere}
+    .description {font-size:17px; line-height:1.5; margin-top:15px; max-width:72ch}
+    .panel-tools {flex-wrap:wrap; gap:9px; margin-top:19px}
+    .btn {display:inline-flex; justify-content:center; align-items:center; min-height:40px; padding:7px 13px; border:1px solid #97a29c; border-radius:4px; background:transparent; color:var(--ink); font-weight:600; font-size:14px}
+    .btn:hover {background:#e9eee7}
+    .primary {background:var(--navy); color:white; border-color:var(--navy)}
+    .primary:hover {background:#334f60}
+    .btn[aria-pressed=true] {background:var(--green-bg); color:#194e48; border-color:var(--teal)}
+    .notice:empty {display:none}
+    .notice {background:#ecf2e9; border-left:3px solid var(--teal); padding:10px 16px; font-size:14px; overflow-wrap:anywhere}
+    .notice[data-tipo=error] {background:#fff2e3; border-color:#914419; color:#6b3216}
+    .document {font:17px/1.64 var(--sans); overflow-wrap:anywhere}
+    .document > * {max-width:77ch; margin:0 0 1.05em}
+    .document > :last-child {margin-bottom:0}
+    .document h3,.document h4,.document h5,.document h6,.work h3,.empty h2 {font:normal 29px/1.2 var(--serif); letter-spacing:-.035em; margin:1.1em 0 .45em}
+    .document h4,.document h5,.document h6 {font-size:23px}
+    .document > :first-child,.work h3:first-child,.empty h2:first-child {margin-top:0}
+    .document ul,.document ol {padding-left:1.6em}
+    .document li+li {margin-top:5px}
+    .document blockquote {border-left:3px solid #86a59a; padding-left:1rem; color:var(--muted)}
+    code,pre,kbd {font-family:var(--mono)}
+    .document code {font-size:.87em; background:#f0f0e9; padding:.08em .24em; border-radius:2px}
+    pre {white-space:pre-wrap; overflow-wrap:anywhere; tab-size:4; font-size:14px; line-height:1.55}
+    .document pre,.compare pre,.original pre {padding:14px; border:1px solid var(--line); background:#f4f4ee; border-radius:3px}
+    .table-wrap {max-width:100%; overflow:auto}
+    table {border-collapse:collapse; width:100%; font:14px/1.55 var(--sans)}
+    th,td {text-align:left; vertical-align:top; padding:9px; border:1px solid var(--line); min-width:7em}
+    th {background:#edf0e8}
+    .inline-link {display:inline; background:none; padding:0; border:0; color:var(--teal); font:inherit; text-decoration:underline; text-underline-offset:.14em}
+    .source-link {font-size:.87em; color:var(--muted)}
+    .work {display:grid; gap:14px}
+    .work label {font-weight:600}
+    textarea {width:100%; min-height:300px; margin-top:6px; display:block; padding:13px; resize:vertical; font:15px/1.5 var(--mono)}
+    .help,.work p {color:var(--muted); font-size:15px}
+    .work h3 {margin:0}
+    .actions {gap:9px; flex-wrap:wrap}
+    .original summary {cursor:pointer; color:var(--teal); font-weight:600}
+    .original pre {max-height:350px; overflow:auto}
+    .compare {display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px}
+    .compare h4 {font-size:15px; margin-bottom:6px}
+    .compare pre {margin:0; max-height:420px; overflow:auto; min-height:52px}
+    .compare pre.del {border-top:3px solid #9b5943}
+    .compare pre.add {border-top:3px solid var(--teal)}
+    .mobile-bar {display:none}
+    @media(max-width:760px) {
+      .wrap {width:calc(100% - 32px)}
+      .mast-inner {min-height:51px}
+      .brand {font-size:22px; gap:8px}
+      .brand small {display:none}
+      .edition {font-size:11px}
+      .sectionbar {justify-content:space-between}
+      .sectionbar button {gap:5px; font-size:15px}
+      main {display:block; padding-top:14px}
+      .mobile-bar {display:flex; justify-content:space-between; gap:10px; margin-bottom:12px}
+      .mobile-bar span {font-size:13px; color:var(--muted)}
+      .index {display:none; position:static; max-height:none; margin-bottom:14px; padding:12px 2px 16px; border-bottom:1px solid var(--line)}
+      .index.abierto {display:block}
+      .index-heading h2 {font-size:22px}
+      .cover h1 {font-size:40px}
+      .metadata {margin-bottom:11px}
+      .document {font-size:16px}
+      .compare {grid-template-columns:minmax(0,1fr)}
+      .btn {min-height:44px}
+      .table-wrap {overscroll-behavior-x:contain}
+    }
+    @media(max-width:350px) {.sectionbar {gap:3px}.sectionbar small {display:none}}
+  </style>
+</head>
+<body>
+  <a class="skip" href="#lector">Ir al documento</a>
+  <header class="mast"><div class="wrap mast-inner">
+    <div class="brand"><span class="book" aria-hidden="true"></span>Oficina<small>Manual de trabajo</small></div>
+    <span class="edition">Edición portátil</span>
+  </div></header>
+  <div class="wrap">
+    <div class="cover">
+      <h1>Guía de Oficina</h1>
+      <p>Consultá las reglas de trabajo, las fichas de los equipos y el mapa de carpetas.</p>
+    </div>
+    <nav class="sectionbar" aria-label="Secciones del manual">
+      <button type="button" data-section="instrucciones">Instrucciones <small></small></button>
+      <button type="button" data-section="roles">Roles <small></small></button>
+      <button type="button" data-section="carpetas">Carpetas <small></small></button>
+    </nav>
+    <main>
+      <div class="mobile-bar"><button type="button" id="indice-movil" class="btn" aria-controls="indice" aria-expanded="false">Abrir índice</button><span id="movil-seccion"></span></div>
+      <aside class="index" id="indice" aria-labelledby="titulo-indice">
+        <div class="index-heading"><h2 id="titulo-indice">Índice</h2></div>
+        <label for="buscar" class="sr">Buscar en esta sección</label>
+        <div class="search-box"><input type="search" id="buscar" placeholder="Buscar en esta sección" autocomplete="off"></div>
+        <label class="filter" id="filtro" hidden>Equipo<select id="equipo"><option value="">Todos los equipos</option></select></label>
+        <p class="result" id="resultados" role="status"></p>
+        <nav id="lista" aria-label="Documentos de la sección"></nav>
+      </aside>
+      <article class="folio" id="lector" tabindex="-1" aria-label="Documento seleccionado">
+        <header class="folio-head" id="cabecera">
+          <div class="metadata"><span class="context" id="contexto"></span><span class="origin" id="origen"></span></div>
+          <h2 id="documento-titulo" tabindex="-1"></h2>
+          <code class="path" id="ruta"></code>
+          <p class="description" id="descripcion" hidden></p>
+          <div class="panel-tools">
+            <button class="btn primary" type="button" id="conectar"></button>
+            <button class="btn" type="button" id="editar"></button>
+            <button class="btn" type="button" id="fuente" aria-pressed="false">Ver fuente</button>
+          </div>
+        </header>
+        <p id="aviso" class="notice" role="status" aria-live="polite" aria-atomic="true"></p>
+        <div id="contenido" class="document"></div>
+        <div id="trabajo" class="work" hidden></div>
+        <div id="vacio" class="empty" hidden><h2>Sin resultados</h2><p>Probá otra búsqueda o cambiá el equipo en el índice.</p></div>
+      </article>
+    </main>
+  </div>
+  <script type="application/json" id="catalogo">{"docs":[{"id":"CLAUDE.md","root":"oficina","path":"CLAUDE.md","section":"instrucciones","team":"","title":"Método de Oficina","description":"","raw":"# Método de Oficina\n\nEmpezá por el [mapa](README.md). La conversación principal acompaña una idea hasta una decisión verificable. Si recibís una tarjeta como sesión independiente de código, empezá por esa tarjeta y por el estado de la idea.\n\n## Planificar\n\nLeé el objetivo, los antecedentes y la última decisión. Acordá con quien pide el trabajo qué resultado necesita y cómo lo podrá comprobar. Elegí la prueba más pequeña que permita decidir. Trabajá con archivos provistos o con fuentes a las que tengas acceso autorizado. Cuando una suposición afecte el alcance, dejala escrita y pedí la decisión que falte.\n\nPrepará una tarjeta con identificador, estado, rol, dependencias, rutas permitidas y una prueba con resultado esperado. Guardá el plan con el producto. Cuando la persona apruebe el alcance, registrá qué aprobó y en qué fecha.\n\n## Pasar a código\n\nPlanificación abre una conversación independiente del mismo cliente para escribir o ejecutar código, incluidos los prototipos. Le entrega la ruta de la tarjeta y conserva el identificador para seguirla. Una tarjeta en propuesta puede quedar en espera. La aprobación habilita su ejecución. Consultá los comandos y el procedimiento de recuperación en [Sesiones y catálogo](docs/sesiones-y-catalogo.md).\n\nCódigo relee la tarjeta y el estado. Trabaja dentro de las rutas aprobadas y prueba el resultado desde el punto de entrada que usará la persona. Documenta en la tarjeta los fallos, las correcciones y la evidencia. En cada oleada hay hasta tres encargos independientes, con un único escritor por archivo. La conversación de código coordina a los especialistas que hagan falta.\n\n## Actualizar el contexto durante el trabajo\n\nPlanificación mantiene `Contexto.md` para el método y `ideas/\u003ctema>/ESTADO.md` para cada idea. Ante una decisión, una corrección, una prueba que termine o un bloqueo, actualizá el archivo en ese momento. En «Ahora» dejá la fecha, el objetivo, la última evidencia, la decisión pendiente y el próximo paso. Guardá los hitos previos debajo. Releé el archivo antes de modificarlo si hay otra sesión trabajando.\n\nPlanificación contrasta la evidencia de la tarjeta, actualiza el mapa del producto y registra por separado la entrega, la conformidad y la publicación. Al retomar, una persona debe poder encontrar el archivo vigente y saber por dónde seguir.\n\n## Decisiones que requieren autorización\n\nConsultá antes de ampliar el alcance, modificar reglas acordadas, publicar, instalar software, borrar archivos, usar credenciales o incurrir en gastos. La disponibilidad de una herramienta o un conector no acredita autorización. Los permisos efectivos y los modelos disponibles los determina cada cliente.\n\n[Cómo ordenar el producto](docs/organizacion-de-oficina.md) · [Cómo trabajar una idea](ideas/CLAUDE.md)\n"},{"id":"AGENTS.md","root":"oficina","path":"AGENTS.md","section":"instrucciones","team":"","title":"Oficina en Codex","description":"","raw":"# Oficina en Codex\n\nLeé [el método de Oficina](CLAUDE.md) al abrir esta carpeta. Vale para planificación y para las sesiones que reciben una tarjeta. Usá las rutas relativas a la raíz del clon. Si el encargo nombra una idea, abrí también [las instrucciones de ideas](ideas/CLAUDE.md) y el estado propio del tema.\n"},{"id":"ideas/CLAUDE.md","root":"oficina","path":"ideas/CLAUDE.md","section":"instrucciones","team":"","title":"Trabajar una idea","description":"","raw":"# Trabajar una idea\n\nAl recibir una idea, buscá primero su carpeta. Si es nueva y se acordó darle seguimiento, creá `ideas/\u003ctema>/` con su estado y un mapa. Anotá la pregunta, a quién le sirve el resultado, qué se sabe y qué falta comprobar. Para ver cómo empieza un caso abrí la [primera idea de ejemplo](../ejemplos/primera-idea/LEEME.md).\n\nGuardá el plan en `docs/planificacion/` dentro de la idea. Expresá la aceptación en términos que otra persona pueda comprobar. Si el producto lo requiere, convocá al equipo de Dirección para definir requisitos, recorrido y tareas. La skill `idea-nueva` describe las etapas de una idea compleja.\n\nCuando se apruebe una tarjeta, planificación abre la conversación de código desde la raíz de Oficina. Usá [la guía de sesiones](../docs/sesiones-y-catalogo.md). Código ejecuta la prueba y deja su parte en la tarjeta. Planificación incorpora la conclusión al estado y actualiza el acceso en el mapa.\n"},{"id":"docs/sesiones-y-catalogo.md","root":"oficina","path":"docs/sesiones-y-catalogo.md","section":"instrucciones","team":"","title":"Sesiones y catálogo","description":"","raw":"# Sesiones y catálogo\n\n## Abrir la conversación de código\n\nPlanificación guarda el objetivo, el alcance aprobado, las rutas y el comando de aceptación en la tarjeta. Dejá la conversación de planificación abierta. Desde la raíz del clon, planificación inicia otro proceso del cliente con su herramienta de terminal y recupera el control mientras ese proceso trabaja. Estos comandos usan el ejemplo inicial y suponen que la persona ya aprobó la tarjeta.\n\n**Codex**\n\n```sh\ncodex exec --sandbox workspace-write --json \"Sos la sesión independiente de código. Leé ideas/primera-idea/tarjetas/IDEA-1.md y ejecutá el alcance aprobado. Dejá la evidencia en la tarjeta.\"\n```\n\nRegistrá el `thread_id` del evento `thread.started` en el estado local de la idea. Para volver a esa conversación desde una terminal, reemplazá `ID_GUARDADO` por ese valor.\n\n```sh\ncodex resume ID_GUARDADO\n```\n\n**Claude Code**\n\n```sh\nclaude --bg --name \"Código IDEA-1\" \"Leé ideas/primera-idea/tarjetas/IDEA-1.md como sesión independiente de código. Ejecutá el alcance aprobado y dejá la evidencia en la tarjeta.\"\n```\n\nRegistrá el identificador que imprime el cliente. Para ver la sesión en una terminal usá ese identificador.\n\n```sh\nclaude attach ID_GUARDADO\n```\n\nSi se interrumpe el arranque, consultá el registro de la tarjeta y la actividad del proceso antes de repetirlo. En Claude, `claude agents --json --all` permite reconocer sesiones ya creadas. Si tu versión carece de `--bg`, planificación puede iniciar `claude -p --output-format json` con el mismo mensaje en un proceso aparte, guardar el `session_id` de la respuesta y volver con `claude --resume ID_GUARDADO`. En Codex, revisá también la salida JSON que guardó planificación. Si el cliente necesita autenticación o una decisión de confianza, la toma la persona en su terminal. Tras habilitar el directorio, abrí la sesión desde la raíz del clon.\n\nCódigo deja en la tarjeta qué cambió, el comando ejecutado, su resultado y cualquier límite. Planificación relee los archivos indicados, actualiza el estado y comprueba el acceso desde el mapa. Mirá el [plan de ejemplo](../ejemplos/primera-idea/docs/planificacion/plan.md).\n\n## Dónde vive cada definición\n\n| Contenido | Original que se edita | Acceso desde Claude Code | Acceso desde Codex |\n|---|---|---|---|\n| Método común | [CLAUDE.md](../CLAUDE.md) | Instrucción de la raíz | [AGENTS.md](../AGENTS.md) remite al método |\n| 18 roles | `catalogo/roles/\u003cequipo>/\u003crol>.md` | `.claude/agents/` abre el árbol de fichas | Cada TOML de `.codex/agents/` indica leer la ficha original por su ruta |\n| 8 skills del método y extensiones locales | `catalogo/skills/\u003cnombre>/`, incluido su `SKILL.md` y sus recursos | `.claude/skills/` | `.agents/skills/` |\n\nEl rol `extractor-gdm` es una especialidad opcional para validar exportaciones provistas por quien pide el análisis. Se puede usar el resto de Oficina sin ese sistema. Si un rol necesita un lector, una biblioteca o una herramienta ausente, comprobá la disponibilidad antes de asignarle la tarea.\n\nPara cambiar instrucciones de un rol, usá la guía o editá el Markdown canónico. Para cambiar una skill, editá su carpeta original. Conservá el identificador y los campos del encabezado. Al iniciar otra conversación, pedile al cliente que lea el original de ese rol o que cargue la skill por nombre. Podés verificar una edición pidiéndole que cite una frase recién cambiada. El HTML muestra la instantánea que creó el generador y relee el original cuando vinculás la carpeta. Los pasos de regeneración están en el [README](../README.md).\n\n### Sumar una skill propia\n\nLos paquetes personales se incorporan por elección de quien usa el clon. Esto también sirve para una skill propia de diagramas de procesos.\n\n1. Elegí un paquete que puedas usar y compartir. Guardá su única edición en `catalogo/skills/mi-metodo/` con sus recursos y referencias relativos a esa carpeta.\n2. Al principio de `SKILL.md` incluí este encabezado. Debajo escribí las condiciones de uso, los pasos y el resultado esperado.\n\n   ```yaml\n   ---\n   name: mi-metodo\n   description: Revisa una propuesta y registra las preguntas pendientes.\n   ---\n   ```\n\n3. Ejecutá el instalador y su comprobación desde la raíz según el README. El total de skills debe aumentar en uno. Abrí conversaciones nuevas y pedí la skill por nombre. Si hay otra con el mismo nombre en tu cliente, elegí un nombre propio y hacelo coincidir con su carpeta. El paquete personal queda fuera de la selección distribuible de Git.\n"},{"id":"docs/organizacion-de-oficina.md","root":"oficina","path":"docs/organizacion-de-oficina.md","section":"carpetas","team":"","title":"Dónde guardar el trabajo","description":"","raw":"# Dónde guardar el trabajo\n\nCada producto tiene una carpeta propia. Para la primera idea, el instalador prepara `ideas/primera-idea/` desde el [ejemplo distribuido](../ejemplos/primera-idea/LEEME.md). Agregá carpetas a medida que haya contenido.\n\n| Dentro del producto | Contenido |\n|---|---|\n| `LEEME.md` | Tabla «Qué abrir». La primera fila lleva a la entrega vigente o al estado mientras se prepara. |\n| `ESTADO.md` | Objetivo, decisión, evidencia y próximo paso. |\n| `docs/planificacion/` | Alcance, criterios, decisiones de diseño y plan. |\n| `tarjetas/` | Encargo para la sesión de código y parte con resultado. |\n| `fuentes/` | Originales recibidos. Cada versión nueva se conserva aparte. |\n| `src/` o `scripts/` | Código mantenido. Calculá las rutas desde el propio archivo. |\n| `prototipos/` | Ensayos que una persona puede abrir y probar. |\n| `tests/salida/` | Resultados descartables de pruebas locales. |\n| `entregas/` | Versiones entregadas, fechadas con AAAA-MM-DD y conservadas. |\n\nEn la raíz del clon quedan el [mapa general](../README.md), las instrucciones comunes, la guía, sus fuentes y el catálogo del método. El archivo local `Contexto.md` sirve para decisiones de esa instalación. El trabajo de cada persona queda en sus carpetas de ideas. La lista de archivos distribuibles de Git está en `.gitignore`.\n\nAl entregar, abrí el vínculo desde el mapa del producto. Verificá el destino, el contenido y la fecha. Registrá quién aceptó la versión si hubo conformidad y dónde se publicó si hubo publicación.\n"},{"id":"catalogo/roles/base/apps-script.md","root":"oficina","path":"catalogo/roles/base/apps-script.md","section":"roles","team":"base","title":"apps-script","description":"Prepara copias locales de Apps Script y fórmulas, con instrucciones para verificarlas.","raw":"---\nname: apps-script\ndescription: Prepara copias locales de Apps Script y fórmulas, con instrucciones para verificarlas.\ntools: Read, Glob, Grep, Write, Edit, Bash, PowerShell, Skill\n---\n\n# apps-script\n\nUna tarjeta identifica la función o fórmula, los archivos locales y el resultado esperado en una copia de prueba.\n\n## Trabajo\n\nLocalizá activadores, menús, nombres de hojas y columnas afectados. Conservá los puntos de entrada de los que dependen otros archivos. Aplicá el cambio en la copia autorizada. Comprobá la sintaxis con las herramientas ya disponibles y el comportamiento con los ejemplos de la tarjeta.\n\n## Entrega\n\nEntregá los archivos completos y los pasos para pegarlos y probarlos en una copia, con la función a ejecutar y el resultado visible. Indicá qué comprobaste en local y qué requiere el entorno del usuario. El despliegue queda a cargo de quien tenga autorización.\n\nSkills afines: `equipo-base`.\n"},{"id":"catalogo/roles/base/corrector.md","root":"oficina","path":"catalogo/roles/base/corrector.md","section":"roles","team":"base","title":"corrector","description":"Corrige la falla reproducida en una tarjeta mediante el cambio mínimo.","raw":"---\nname: corrector\ndescription: Corrige la falla reproducida en una tarjeta mediante el cambio mínimo.\ntools: Read, Glob, Grep, Write, Edit, Bash, PowerShell, Skill\n---\n\n# corrector\n\nRecibís una tarjeta de corrección con el síntoma, la entrada que falla, el resultado esperado y las rutas autorizadas.\n\n## Trabajo\n\nUbicá la causa comparando lo observado con la aceptación original. Modificá solo lo necesario para que el mismo caso cumpla esa aceptación. Conservá las aserciones y verificá el caso que fallaba.\n\n## Entrega\n\nInformá causa, archivo, cambio y salida de la prueba. Si la causa está fuera del alcance, señalá la evidencia y la decisión pendiente.\n\nSkills afines: `equipo-base`.\n"},{"id":"catalogo/roles/base/implementador.md","root":"oficina","path":"catalogo/roles/base/implementador.md","section":"roles","team":"base","title":"implementador","description":"Implementa cambios que requieren criterio técnico cuando el producto carece de especialista.","raw":"---\nname: implementador\ndescription: Implementa cambios que requieren criterio técnico cuando el producto carece de especialista.\ntools: Read, Glob, Grep, Write, Edit, Bash, PowerShell, Skill\n---\n\n# implementador\n\nPartí de una tarjeta aprobada con comportamiento esperado, archivos permitidos y prueba de aceptación.\n\n## Trabajo\n\nLeé las instrucciones del producto y los puntos de entrada involucrados. Reutilizá el código que ya cumple el contrato. Implementá el cambio respetando a los demás consumidores y los datos existentes. Corré la aceptación de la tarjeta.\n\n## Entrega\n\nEntregá las rutas modificadas, el comando y su resultado. Registrá los casos pendientes y cualquier decisión que afecte el alcance.\n\nSkills afines: `equipo-base`.\n"},{"id":"catalogo/roles/base/investigador.md","root":"oficina","path":"catalogo/roles/base/investigador.md","section":"roles","team":"base","title":"investigador","description":"Reúne información con fuentes para responder una pregunta acotada en proyectos sin especialista.","raw":"---\nname: investigador\ndescription: Reúne información con fuentes para responder una pregunta acotada en proyectos sin especialista.\ntools: Read, Glob, Grep, WebSearch, WebFetch, Skill\n---\n\n# investigador\n\nLa tarjeta define qué decisión depende de la respuesta y qué documentos podés consultar.\n\n## Trabajo\n\nLeé primero los archivos seleccionados. Para cada afirmación anotá la ubicación exacta y la fecha. Ampliá la consulta a fuentes externas solo cuando la tarjeta y el entorno lo permitan. Si dos fuentes discrepan, explicá qué afirma cada una.\n\n## Entrega\n\nDevolvé un informe de lectura con la respuesta, sus referencias, las inferencias y lo que falta comprobar. Los cambios a archivos quedan para la sesión responsable.\n\nSkills afines: `equipo-base`.\n"},{"id":"catalogo/roles/base/mecanico.md","root":"oficina","path":"catalogo/roles/base/mecanico.md","section":"roles","team":"base","title":"mecanico","description":"Aplica cambios literales que una tarjeta ya especificó por completo.","raw":"---\nname: mecanico\ndescription: Aplica cambios literales que una tarjeta ya especificó por completo.\ntools: Read, Glob, Grep, Write, Edit, Bash, PowerShell, Skill\n---\n\n# mecanico\n\nIdentificá la lista exacta de archivos y los valores, textos o nombres esperados antes y después.\n\n## Trabajo\n\nComprobá las condiciones iniciales. Aplicá cada sustitución únicamente en las ubicaciones previstas. Si falta el valor de origen, existe una colisión o aparecen dos interpretaciones posibles, registrá el caso para que lo resuelva quien redactó la tarjeta.\n\n## Entrega\n\nEnumerá los cambios y el resultado de la aceptación. Informá cada caso que conservó su estado anterior y el motivo.\n\nSkills afines: `equipo-base`.\n"},{"id":"catalogo/roles/base/revisor.md","root":"oficina","path":"catalogo/roles/base/revisor.md","section":"roles","team":"base","title":"revisor","description":"Revisa en lectura el código y documenta fallas observables con archivo y línea.","raw":"---\nname: revisor\ndescription: Revisa en lectura el código y documenta fallas observables con archivo y línea.\ntools: Read, Glob, Grep, Skill\n---\n\n# revisor\n\nLeé el criterio de aceptación, las reglas locales y los archivos del cambio.\n\n## Trabajo\n\nRecorré un caso normal y los bordes relevantes. Buscá regresiones, permisos indebidos, conflictos con datos anteriores y diferencias con el contrato. Basá cada hallazgo en una ruta de ejecución concreta. Trabajá en modo lectura.\n\n## Entrega\n\nPor cada hallazgo entregá archivo y línea, situación que lo activa, efecto y posible arreglo. Si el material resulta insuficiente, identificá el caso sin verificar.\n\nSkills afines: `equipo-base`.\n"},{"id":"catalogo/roles/datos/analista.md","root":"oficina","path":"catalogo/roles/datos/analista.md","section":"roles","team":"datos","title":"analista","description":"Calcula métricas y tendencias a partir de datos locales con definiciones verificables.","raw":"---\nname: analista\ndescription: Calcula métricas y tendencias a partir de datos locales con definiciones verificables.\ntools: Read, Glob, Grep, Write, Edit, Bash, PowerShell, Skill\n---\n\n# analista\n\nLa tarjeta identifica la pregunta, la fuente autorizada, el período, la unidad y las reglas de inclusión.\n\n## Trabajo\n\nConservá los originales. Comprobá columnas, tipos, duplicados y cobertura de fechas antes de agregar. Separá unidades y poblaciones incompatibles. Registrá cómo trataste faltantes. Cuando exista un total independiente, contrastalo con el cálculo.\n\n## Entrega\n\nEntregá el procedimiento reproducible, los totales y la cobertura. Explicá qué conclusión admite la muestra y localizá las diferencias pendientes.\n\nSkills afines: `equipo-datos`.\n"},{"id":"catalogo/roles/datos/dataviz.md","root":"oficina","path":"catalogo/roles/datos/dataviz.md","section":"roles","team":"datos","title":"dataviz","description":"Representa métricas validadas en gráficos legibles y accesibles.","raw":"---\nname: dataviz\ndescription: Representa métricas validadas en gráficos legibles y accesibles.\ntools: Read, Glob, Grep, Write, Edit, Bash, PowerShell, Skill\n---\n\n# dataviz\n\nRecibís los valores calculados, sus unidades y la pregunta que debe contestar el gráfico.\n\n## Trabajo\n\nElegí la escala en función de la comparación. Usá la tecnología y el tema del producto. Rotulá unidad y período, ofrecé una alternativa textual y distinguí series además del color. Comprobá el ancho reducido y los casos de cero, uno y varios puntos.\n\n## Entrega\n\nEntregá el gráfico y sus fuentes editables. Identificá la serie de entrada y describí cómo verificaste escala, etiquetas y estados sin datos.\n\nSkills afines: `equipo-datos`.\n"},{"id":"catalogo/roles/datos/extractor-gdm.md","root":"oficina","path":"catalogo/roles/datos/extractor-gdm.md","section":"roles","team":"datos","title":"extractor-gdm","description":"Transforma exportaciones locales de GDM en datos validados para análisis posteriores.","raw":"---\nname: extractor-gdm\ndescription: Transforma exportaciones locales de GDM en datos validados para análisis posteriores.\ntools: Read, Glob, Grep, Write, Edit, Bash, PowerShell, Skill\n---\n\n# extractor-gdm\n\nEspecialidad opcional. Usala cuando el producto disponga de una exportación autorizada de GDM en CSV o en un formato de planilla que el entorno pueda leer. La Oficina también funciona completa sin ese sistema.\n\n## Trabajo\n\nIdentificá encabezados, codificación, tipos y claves con el diccionario del producto. Procesá la exportación en lectura, aplicá las reglas documentadas y separá registros ambiguos o inválidos. Escribí el derivado en la carpeta asignada. El trabajo se realiza enteramente sobre archivos.\n\n## Entrega\n\nEntregá el esquema de salida, los conteos de entrada, válidos y observados, y una comprobación que permita repetir el extracto. Conservá los identificadores sensibles en el entorno autorizado.\n\nSkills afines: `equipo-datos`.\n"},{"id":"catalogo/roles/datos/tablero-html.md","root":"oficina","path":"catalogo/roles/datos/tablero-html.md","section":"roles","team":"datos","title":"tablero-html","description":"Construye y prueba un tablero HTML desde un conjunto de datos validado.","raw":"---\nname: tablero-html\ndescription: Construye y prueba un tablero HTML desde un conjunto de datos validado.\ntools: Read, Glob, Grep, Write, Edit, Bash, PowerShell, Skill\n---\n\n# tablero-html\n\nLa tarjeta especifica las preguntas del tablero, los indicadores calculados y el modo de apertura acordado.\n\n## Trabajo\n\nEditá las fuentes del tablero y la construcción que lo regenera. Leé los valores desde los datos. Revisá en navegador filtros, navegación, estados vacíos y pantallas angostas. Si debe abrir por doble clic, comprobá ese recorrido con sus recursos locales.\n\n## Entrega\n\nEntregá la ubicación del HTML, el procedimiento de generación y los resultados de interacción. Compará al menos una cifra visible con los datos entregados por el analista.\n\nSkills afines: `equipo-datos`.\n"},{"id":"catalogo/roles/direccion/arquitecto.md","root":"oficina","path":"catalogo/roles/direccion/arquitecto.md","section":"roles","team":"direccion","title":"arquitecto","description":"Especifica los requisitos técnicos, el modelo de datos y la forma de probarlos.","raw":"---\nname: arquitecto\ndescription: Especifica los requisitos técnicos, el modelo de datos y la forma de probarlos.\ntools: Read, Glob, Grep, Write, Edit, Skill\n---\n\n# arquitecto\n\nRecibís el alcance funcional aprobado y las restricciones técnicas registradas.\n\n## Trabajo\n\nPara el documento técnico, relacioná cada requisito con una prueba observable, dependencias y modos de fallo. Para el backend describí entidades, relaciones y puntos de entrada con entradas, salidas y errores. Explicá los costos o límites que condicionan la decisión.\n\n## Entrega\n\nDevolvé las especificaciones en la carpeta de planificación del producto. Marcá las preguntas abiertas con un responsable. Los prototipos se encargan mediante tarjeta a la conversación de código.\n\nSkills afines: `equipo-direccion`.\n"},{"id":"catalogo/roles/direccion/disenador.md","root":"oficina","path":"catalogo/roles/direccion/disenador.md","section":"roles","team":"direccion","title":"disenador","description":"Define el recorrido de pantallas y las decisiones visuales de un producto.","raw":"---\nname: disenador\ndescription: Define el recorrido de pantallas y las decisiones visuales de un producto.\ntools: Read, Glob, Grep, Write, Edit, Skill\n---\n\n# disenador\n\nPartí de la audiencia, los casos de uso y las funciones aprobadas.\n\n## Trabajo\n\nDescribí el recorrido de principio a fin. Para cada paso indicá la acción, la siguiente pantalla y los estados de carga, error o falta de datos. Cuando haga falta elegir, presentá opciones concretas de composición, contraste y tipografía con sus consecuencias.\n\n## Entrega\n\nEntregá el flujo y el documento de diseño en la carpeta de planificación. Anotá cuáles decisiones quedaron aprobadas y cuáles requieren una elección. Una maqueta ejecutable se encarga a código.\n\nSkills afines: `equipo-direccion`.\n"},{"id":"catalogo/roles/direccion/estratega.md","root":"oficina","path":"catalogo/roles/direccion/estratega.md","section":"roles","team":"direccion","title":"estratega","description":"Convierte una meta en un brief de producto con prioridades y límites explícitos.","raw":"---\nname: estratega\ndescription: Convierte una meta en un brief de producto con prioridades y límites explícitos.\ntools: Read, Glob, Grep, Write, Edit, Skill\n---\n\n# estratega\n\nNecesitás la pregunta inicial, la audiencia prevista y los antecedentes disponibles.\n\n## Trabajo\n\nDescribí un caso de uso con la persona que actúa, el momento y la decisión que busca tomar. Definí una meta observable. Priorizá las funciones imprescindibles, las que pueden esperar y los límites del alcance. Localizá lo reutilizable dentro de las fuentes autorizadas.\n\n## Entrega\n\nEntregá un brief con meta, audiencia, prioridades, antecedentes y preguntas que puedan cambiar el plan. Pedí la decisión de alcance a través de planificación.\n\nSkills afines: `equipo-direccion`.\n"},{"id":"catalogo/roles/direccion/pm.md","root":"oficina","path":"catalogo/roles/direccion/pm.md","section":"roles","team":"direccion","title":"pm","description":"Convierte un brief aprobado en tarjetas y compara los resultados con la meta.","raw":"---\nname: pm\ndescription: Convierte un brief aprobado en tarjetas y compara los resultados con la meta.\ntools: Read, Glob, Grep, Write, Edit, Skill\n---\n\n# pm\n\nRecibís el brief, el estado del producto, las pruebas disponibles y los roles del catálogo.\n\n## Trabajo\n\nDividí el trabajo en tareas verificables. Para cada una identificá rol, dependencias, archivos autorizados, pruebas existentes y aceptación con resultado esperado. Agrupá hasta tres trabajos independientes por oleada. Para una corrección, documentá el caso que falló.\n\n## Entrega\n\nEntregá el plan y las tareas en JSON cuando corresponda. Al dar seguimiento, compará los indicadores con la meta y estimá el efecto de cada cambio propuesto. Planificación conserva las decisiones y abre la sesión de ejecución.\n\nSkills afines: `equipo-direccion`.\n"},{"id":"catalogo/roles/librarian/librarian.md","root":"oficina","path":"catalogo/roles/librarian/librarian.md","section":"roles","team":"librarian","title":"librarian","description":"Incorpora fuentes a una biblioteca local, responde consultas con citas y revisa sus enlaces.","raw":"---\nname: librarian\ndescription: Incorpora fuentes a una biblioteca local, responde consultas con citas y revisa sus enlaces.\ntools: Read, Glob, Grep, Write, Edit, Skill\n---\n\n# librarian\n\nLa tarjeta indica la biblioteca del producto, la operación y las ubicaciones autorizadas. Una carpeta de documentos con índice alcanza para aplicar el método.\n\n## Trabajo\n\nEn INGEST, conservá los originales, registrá los hallazgos con fuente y fecha y conectá el nuevo documento con el índice. En QUERY, localizá el pasaje que sustenta la respuesta y citá su archivo. En LINT, comprobá enlaces, vigencia y contradicciones. Corregí solo las discrepancias autorizadas.\n\n## Entrega\n\nEntregá el registro de incorporación, la respuesta citada o la lista de hallazgos, según la operación. Conservá el historial y hacé visibles las diferencias entre fuentes.\n\nSkills afines: `equipo-librarian`.\n"},{"id":"catalogo/roles/research/esceptico.md","root":"oficina","path":"catalogo/roles/research/esceptico.md","section":"roles","team":"research","title":"esceptico","description":"Contrasta afirmaciones decisivas con fuentes primarias y busca contraejemplos.","raw":"---\nname: esceptico\ndescription: Contrasta afirmaciones decisivas con fuentes primarias y busca contraejemplos.\ntools: Read, Glob, Grep, WebSearch, WebFetch, Skill\n---\n\n# esceptico\n\nRecibís una pregunta o un informe con afirmaciones que pueden cambiar la decisión.\n\n## Trabajo\n\nElegí entre tres y cinco afirmaciones centrales si el material lo permite. Buscá el documento original, su fecha, las condiciones de aplicación y al menos una excepción plausible. Si dos fuentes discrepan, explicá qué criterio permite distinguirlas.\n\n## Entrega\n\nDevolvé por afirmación la evidencia, el contraejemplo encontrado o buscado y el grado de confirmación. Identificá las preguntas pendientes. La investigación es de lectura.\n\nSkills afines: `equipo-research`.\n"},{"id":"catalogo/roles/research/explorador.md","root":"oficina","path":"catalogo/roles/research/explorador.md","section":"roles","team":"research","title":"explorador","description":"Releva enfoques y fuentes distintas para abrir una investigación.","raw":"---\nname: explorador\ndescription: Releva enfoques y fuentes distintas para abrir una investigación.\ntools: Read, Glob, Grep, WebSearch, WebFetch, Skill\n---\n\n# explorador\n\nDefiní qué decisión orienta la búsqueda y qué antecedentes ya están disponibles.\n\n## Trabajo\n\nRecorré perspectivas que representen alternativas reales. Seleccioná fuentes de distinto origen con fecha y procedencia. Resumí qué aporta cada una, dónde coincide con las demás y qué asunto merece verificación más profunda. Respetá las fuentes y accesos autorizados.\n\n## Entrega\n\nEntregá un panorama breve con hallazgos, referencias, contradicciones y preguntas abiertas. Indicá qué parte del panorama depende de evidencia todavía insuficiente.\n\nSkills afines: `equipo-research`.\n"},{"id":"catalogo/roles/research/practico.md","root":"oficina","path":"catalogo/roles/research/practico.md","section":"roles","team":"research","title":"practico","description":"Documenta ejemplos de uso, requisitos, costos y límites de una alternativa.","raw":"---\nname: practico\ndescription: Documenta ejemplos de uso, requisitos, costos y límites de una alternativa.\ntools: Read, Glob, Grep, WebSearch, WebFetch, Skill\n---\n\n# practico\n\nRecibís la pregunta, el caso de uso y las restricciones del producto.\n\n## Trabajo\n\nBuscá ejemplos documentados que se parezcan al uso real. Para cada alternativa anotá versiones, requisitos, cuotas o precios con fecha cuando correspondan. Diferenciá lo observado en las fuentes de lo comprobado en una ejecución previa. Derivá las pruebas nuevas a código.\n\n## Entrega\n\nEntregá un ejemplo trazable, condiciones para repetirlo, límites y dudas. Referenciá la fuente y la fecha de los costos. La tarea de investigación es de lectura.\n\nSkills afines: `equipo-research`.\n"}],"teams":{"base":"Base","datos":"Datos","direccion":"Dirección","librarian":"Librarian","research":"Research"},"links":["README.md","ejemplos/contexto-inicial.md","ejemplos/primera-idea/LEEME.md","ejemplos/primera-idea/ESTADO.md","ejemplos/primera-idea/docs/planificacion/plan.md","ejemplos/primera-idea/tarjetas/IDEA-1.md","catalogo/skills/equipo-base/SKILL.md","catalogo/skills/equipo-datos/SKILL.md","catalogo/skills/equipo-direccion/SKILL.md","catalogo/skills/equipo-librarian/SKILL.md","catalogo/skills/equipo-research/SKILL.md","catalogo/skills/idea-nueva/SKILL.md","catalogo/skills/revisar-skills/SKILL.md","catalogo/skills/turno/SKILL.md"]}</script>
+  <script>(() => {
+  "use strict";
+
+  const catalogo = JSON.parse(document.getElementById("catalogo").textContent);
+  const documentos = new Map(catalogo.docs.map(doc => [doc.id, doc]));
+  const reglas = new Set([
+    "CLAUDE.md", "AGENTS.md", "ideas/CLAUDE.md",
+    "docs/sesiones-y-catalogo.md", "docs/organizacion-de-oficina.md"
+  ]);
+  const rutaDeRol = /^catalogo\/roles\/(base|datos|direccion|librarian|research)\/[a-z0-9-]+\.md$/;
+  const raices = ["oficina"];
+  const activas = new Map();
+  const recordadas = new Map();
+  const generaciones = new Map();
+  const permiso = { mode: "readwrite" };
+  const soportado = typeof window.showDirectoryPicker === "function";
+  let apertura;
+
+  class ErrorDelManual extends Error {
+    constructor(mensaje, code = "archivo") {
+      super(mensaje);
+      this.code = code;
+    }
+  }
+
+  function original(doc) {
+    // El llamador proporciona una identidad, nunca los tramos que se abren.
+    const ficha = documentos.get(doc?.id);
+    if (ficha && ficha.root === "oficina" && ficha.id === ficha.path) {
+      if (ficha.section !== "roles" && reglas.has(ficha.path)) return ficha;
+      if (ficha.section === "roles" && rutaDeRol.test(ficha.path)) return ficha;
+    }
+    throw new ErrorDelManual("Ese archivo está fuera del catálogo de la guía.");
+  }
+
+  function separar(doc, raw) {
+    const ficha = original(doc);
+    if (ficha.section !== "roles") {
+      const prefijo = raw.startsWith("\uFEFF") ? "\uFEFF" : "";
+      return { prefijo, cuerpo: raw.slice(prefijo.length) };
+    }
+    const bloque = /^(?:\uFEFF)?---[ \t]*\r?\n([\s\S]*?)^---[ \t]*(?:\r?\n|(?![\s\S]))/m;
+    const encontrado = bloque.exec(raw);
+    const nombre = encontrado && /^name:[ \t]*([a-z0-9-]+)[ \t]*\r?$/m.exec(encontrado[1]);
+    const esperado = ficha.path.split("/").pop().slice(0, -3);
+    if (!encontrado || encontrado.index !== 0 || nombre?.[1] !== esperado) {
+      throw new ErrorDelManual("Revisá el encabezado y el nombre del rol en " + ficha.id + ".");
+    }
+    const prefijo = encontrado[0];
+    return { prefijo, cuerpo: raw.slice(prefijo.length) };
+  }
+
+  function proponer(doc, base, cuerpo) {
+    const anterior = separar(doc, base);
+    if (typeof cuerpo !== "string") throw new ErrorDelManual("Falta el texto de la propuesta.");
+    const normalizar = texto => texto.replace(/\r\n|\r/g, "\n");
+    const nuevo = normalizar(cuerpo);
+    if (normalizar(anterior.cuerpo) === nuevo) return base;
+    // Un textarea presenta saltos LF también cuando el archivo original usa CRLF.
+    const salto = base.match(/\r\n|\r|\n/)?.[0] || "\n";
+    let prefijo = anterior.prefijo;
+    if (original(doc).section === "roles" && !/[\r\n]$/.test(prefijo)) prefijo += salto;
+    return prefijo + nuevo.replace(/\n/g, salto);
+  }
+
+  async function archivoDe(carpeta, ficha) {
+    const partes = ficha.path.split("/");
+    const nombre = partes.pop();
+    let ubicacion = carpeta;
+    for (const parte of partes) ubicacion = await ubicacion.getDirectoryHandle(parte);
+    return ubicacion.getFileHandle(nombre);
+  }
+
+  async function contenido(handle) {
+    const archivo = await handle.getFile();
+    const bytes = await archivo.arrayBuffer();
+    try {
+      // File.text() descarta el BOM. El prefijo debe sobrevivir byte por byte.
+      return new TextDecoder("utf-8", { fatal: true, ignoreBOM: true }).decode(bytes);
+    } catch {
+      throw new ErrorDelManual("El archivo contiene texto que no se puede leer como UTF-8.");
+    }
+  }
+
+  function explicar(error, accion, referencia) {
+    if (error instanceof ErrorDelManual) return error;
+    const donde = "«" + referencia + "»";
+    switch (error?.name) {
+      case "AbortError":
+        return new ErrorDelManual("Se canceló la operación en " + donde + ".", "cancelado");
+      case "NotAllowedError":
+      case "SecurityError":
+        return new ErrorDelManual("El navegador rechazó el permiso para " + donde +
+          ". Volvé a conectar la carpeta en Chrome o Edge.", "permiso");
+      case "NotFoundError":
+      case "TypeMismatchError":
+        return new ErrorDelManual("Falta la ruta esperada " + donde +
+          ". Verificá la carpeta elegida y su contenido.");
+      case "NoModificationAllowedError":
+        return new ErrorDelManual("Otro proceso mantiene abierto " + donde +
+          " para escribir. Volvé a revisar el original.", "conflicto");
+      default:
+        return new ErrorDelManual("No se pudo " + accion + " " + donde +
+          ". Comprobá el acceso y volvé a intentarlo.");
+    }
+  }
+
+  async function validarCarpeta(raiz, carpeta) {
+    if (carpeta.kind !== "directory") throw new ErrorDelManual("Elegí la carpeta que contiene guia.html.");
+    try {
+      await carpeta.getFileHandle("guia.html");
+    } catch (error) {
+      throw explicar(error, "encontrar", "guia.html");
+    }
+    for (const ficha of documentos.values()) {
+      if (ficha.root !== raiz) continue;
+      try {
+        const handle = await archivoDe(carpeta, original(ficha));
+        separar(ficha, await contenido(handle));
+      } catch (error) {
+        throw explicar(error, "leer", ficha.id);
+      }
+    }
+  }
+
+  function abrirMemoria() {
+    if (!apertura) {
+      apertura = new Promise(resolve => {
+        try {
+          const solicitud = indexedDB.open("guia-portatil-de-oficina", 1);
+          solicitud.onupgradeneeded = () => solicitud.result.createObjectStore("carpetas");
+          solicitud.onsuccess = () => resolve(solicitud.result);
+          solicitud.onerror = solicitud.onblocked = () => resolve(null);
+        } catch {
+          resolve(null);
+        }
+      });
+    }
+    return apertura;
+  }
+
+  async function memoria(raiz, accion, handle) {
+    const db = await abrirMemoria();
+    if (!db) return null;
+    // Las copias de la guía en otras ubicaciones tienen sus propias conexiones.
+    const clave = [window.location.pathname, raiz];
+    try {
+      return await new Promise((resolve, reject) => {
+        const transaccion = db.transaction("carpetas", accion === "leer" ? "readonly" : "readwrite");
+        const almacen = transaccion.objectStore("carpetas");
+        let solicitud;
+        if (accion === "leer") solicitud = almacen.get(clave);
+        else if (accion === "guardar") solicitud = almacen.put(handle, clave);
+        else solicitud = almacen.delete(clave);
+        transaccion.oncomplete = () => resolve(solicitud.result);
+        transaccion.onabort = transaccion.onerror = () => reject(transaccion.error);
+      });
+    } catch {
+      // Un navegador puede permitir el selector y rechazar la copia del handle en IndexedDB.
+      return null;
+    }
+  }
+
+  async function restaurar() {
+    if (!soportado) return;
+    await Promise.all(raices.map(async raiz => {
+      const generacion = generaciones.get(raiz);
+      const carpeta = await memoria(raiz, "leer");
+      if (!carpeta || generaciones.get(raiz) !== generacion) return;
+      recordadas.set(raiz, carpeta);
+      try {
+        if (await carpeta.queryPermission(permiso) !== "granted") return;
+        await validarCarpeta(raiz, carpeta);
+        if (generaciones.get(raiz) === generacion) activas.set(raiz, carpeta);
+      } catch {
+        if (generaciones.get(raiz) === generacion) {
+          recordadas.delete(raiz);
+          await memoria(raiz, "quitar");
+        }
+      }
+    }));
+  }
+
+  async function conectar(raiz) {
+    if (!raices.includes(raiz)) throw new ErrorDelManual("Elegí la carpeta que contiene guia.html.");
+    if (!soportado) throw new ErrorDelManual("Para escribir en el original, abrí la guía en Chrome o Edge.");
+    const generacion = (generaciones.get(raiz) || 0) + 1;
+    generaciones.set(raiz, generacion);
+    const previa = activas.get(raiz);
+    const pendiente = !previa && recordadas.get(raiz);
+    try {
+      // El selector o el pedido de permiso se abre dentro del gesto de la persona.
+      const carpeta = pendiente || await window.showDirectoryPicker({ mode: "readwrite", id: "guia-" + raiz });
+      let estado = pendiente ? await carpeta.requestPermission(permiso) : await carpeta.queryPermission(permiso);
+      if (!pendiente && estado === "prompt") estado = await carpeta.requestPermission(permiso);
+      if (estado !== "granted") {
+        throw new ErrorDelManual("El navegador no concedió acceso de escritura a «" + raiz +
+          "». Volvé a conectar la carpeta.", "permiso");
+      }
+      await validarCarpeta(raiz, carpeta);
+      let cambioDeDestino = false;
+      if (previa) {
+        try {
+          cambioDeDestino = !await previa.isSameEntry(carpeta);
+        } catch {
+          // Un borrador revisado solo se puede reutilizar con identidad comprobada.
+          cambioDeDestino = true;
+        }
+      }
+      if (generaciones.get(raiz) !== generacion) throw new ErrorDelManual("Hay otra conexión en curso.");
+      activas.set(raiz, carpeta);
+      recordadas.set(raiz, carpeta);
+      await memoria(raiz, "guardar", carpeta);
+      return { cambioDeDestino };
+    } catch (error) {
+      if (pendiente && generaciones.get(raiz) === generacion) {
+        recordadas.delete(raiz);
+        await memoria(raiz, "quitar");
+      }
+      throw explicar(error, "conectar", raiz);
+    }
+  }
+
+  async function leer(doc) {
+    const ficha = original(doc);
+    const carpeta = activas.get(ficha.root);
+    if (!carpeta) return ficha.raw;
+    try {
+      const raw = await contenido(await archivoDe(carpeta, ficha));
+      separar(ficha, raw);
+      return raw;
+    } catch (error) {
+      throw explicar(error, "leer", ficha.id);
+    }
+  }
+
+  async function guardar(doc, base, cuerpo) {
+    const ficha = original(doc);
+    const carpeta = activas.get(ficha.root);
+    if (!carpeta) throw new ErrorDelManual("Conectá la carpeta «" + ficha.root + "» antes de guardar.");
+    const propuesta = proponer(ficha, base, cuerpo);
+    const conflicto = () => new ErrorDelManual("El original cambió en disco. " +
+      "Compará la versión actual antes de volver a guardar.", "conflicto");
+    let escritura;
+    let cerrado = false;
+    try {
+      if (await carpeta.queryPermission(permiso) !== "granted") {
+        throw new ErrorDelManual("Se perdió el permiso de escritura. Volvé a conectar la carpeta.", "permiso");
+      }
+      const handle = await archivoDe(carpeta, ficha);
+      async function comprobarBase() {
+        const actual = await archivoDe(carpeta, ficha);
+        if (activas.get(ficha.root) !== carpeta || !await actual.isSameEntry(handle) ||
+            await contenido(actual) !== base) throw conflicto();
+      }
+      await comprobarBase();
+      escritura = await handle.createWritable({ mode: "exclusive" });
+      // La API prepara un archivo temporal hasta close(). Si el original cambió,
+      // abort descarta ese temporal sin reemplazar el contenido nuevo de disco.
+      await escritura.write(propuesta);
+      await comprobarBase();
+      await escritura.close();
+      cerrado = true;
+      const escrito = await contenido(await archivoDe(carpeta, ficha));
+      if (escrito !== propuesta) throw new ErrorDelManual("El archivo leído después de cerrar difiere de " +
+        "la propuesta. Revisá el original.", "conflicto");
+      return escrito;
+    } catch (error) {
+      if (escritura && !cerrado) {
+        try { await escritura.abort(); } catch { /* El navegador ya cerró el flujo. */ }
+      }
+      if (cerrado && !(error instanceof ErrorDelManual)) {
+        throw new ErrorDelManual("La escritura se cerró, pero no se pudo verificar el archivo. " +
+          "Revisá el original.");
+      }
+      if (error?.name === "NotFoundError") throw conflicto();
+      throw explicar(error, "guardar", ficha.id);
+    }
+  }
+
+  window.archivos = Object.freeze({
+    soportado, conectado: raiz => activas.has(raiz), nombre: raiz => activas.get(raiz)?.name, restaurar, conectar,
+    leer, separar, proponer, guardar
+  });
+})();
+</script>
+  <script>(() => {
+  "use strict";
+
+  const {docs, teams, links} = JSON.parse(document.getElementById("catalogo").textContent);
+  const files = window.archivos;
+  const $ = id => document.getElementById(id);
+  const titles = {instrucciones:"Instrucciones", roles:"Roles", carpetas:"Carpetas"};
+  const byId = new Map(docs.map(doc => [doc.id, doc]));
+  const live = new Map();
+  const unavailable = new Map();
+  const drafts = new Map();
+  const lastSelection = {};
+  const localMaps = new Set(links);
+  let section = "instrucciones";
+  let current;
+  let mode = "lectura";
+  let busy = false;
+
+  function element(tag, text, className) {
+    const node = document.createElement(tag);
+    if (text !== undefined) node.textContent = text;
+    if (className) node.className = className;
+    return node;
+  }
+  function button(text, fn, className, id) {
+    const node = element("button", text, className);
+    node.type = "button";
+    if (id) node.id = id;
+    node.addEventListener("click", fn);
+    return node;
+  }
+  function fold(text) {
+    return text.normalize("NFD").replace(/\p{M}/gu, "").toLocaleLowerCase("es");
+  }
+  function cleanLines(text) {
+    return text.replace(/\r\n?/g, "\n");
+  }
+  function rawOf(doc) {
+    return live.get(doc.id) ?? doc.raw;
+  }
+  function descriptionOf(doc) {
+    if (doc.section !== "roles" || !live.has(doc.id)) return doc.description;
+    const {prefijo} = files.separar(doc, rawOf(doc));
+    const found = /^description:[ \t]*(.*)$/m.exec(prefijo);
+    if (!found) return "";
+    const plain = found[1].trim();
+    if (plain.startsWith('"') && plain.endsWith('"')) {
+      try { return JSON.parse(plain); } catch {}
+    }
+    if (plain.startsWith("'") && plain.endsWith("'")) return plain.slice(1,-1).replaceAll("''", "'");
+    return plain;
+  }
+  function titleOf(doc) {
+    if (doc.section === "roles" || !live.has(doc.id)) return doc.title;
+    const heading = /^#[ \t]+(.+)$/m.exec(rawOf(doc).replace(/^\uFEFF/, ""));
+    return heading ? heading[1].trim() : doc.path;
+  }
+  function inSection(key) {
+    return docs.filter(doc => doc.section === key || (key === "instrucciones" && doc.section === "carpetas"));
+  }
+  function message(text = "", error = false) {
+    $("aviso").dataset.tipo = error ? "error" : "info";
+    $("aviso").textContent = text;
+  }
+  function toggleIndex(open, focusSearch = false) {
+    $("indice").classList.toggle("abierto", open);
+    $("indice-movil").setAttribute("aria-expanded", String(open));
+    $("indice-movil").textContent = open ? "Cerrar índice" : "Abrir índice";
+    if (open && focusSearch) $("buscar").focus();
+  }
+  function goTo(doc, focus = true) {
+    if (busy) return;
+    current = doc;
+    lastSelection[section] = doc.id;
+    mode = "lectura";
+    message();
+    renderIndex();
+    renderReader();
+    toggleIndex(false);
+    if (focus) $("documento-titulo").focus();
+  }
+  function filtered() {
+    const words = fold($("buscar").value.trim()).split(/\s+/).filter(Boolean);
+    const team = section === "roles" && $("equipo").value;
+    return inSection(section).filter(doc => {
+      if (team && team !== doc.team) return false;
+      const haystack = fold([doc.title, titleOf(doc), descriptionOf(doc), doc.id, rawOf(doc)].join(" "));
+      return words.every(word => haystack.includes(word));
+    });
+  }
+  function renderIndex(chooseResult = false) {
+    const candidates = filtered();
+    if (chooseResult && !candidates.includes(current)) {
+      current = candidates[0];
+      mode = "lectura";
+      message();
+    }
+    $("lista").replaceChildren();
+    $("filtro").hidden = section !== "roles";
+    const noun = section === "roles" ? "ficha" : "documento";
+    $("resultados").textContent = candidates.length + " " + noun + (candidates.length === 1 ? "" : "s");
+    const grouped = section === "roles"
+      ? Object.entries(teams).map(([key, name]) => [name, candidates.filter(doc => doc.team === key)])
+      : [[null, candidates]];
+    for (const [name, entries] of grouped) {
+      if (!entries.length) continue;
+      if (name) {
+        const heading = element("h3", name + " ", "group-title");
+        heading.append(element("span", String(entries.length)));
+        $("lista").append(heading);
+      }
+      for (const doc of entries) {
+        const link = button(titleOf(doc), () => goTo(doc), "doc-link");
+        link.dataset.docId = doc.id;
+        link.setAttribute("aria-current", String(doc === current));
+        if (doc.section !== "roles") link.append(element("small", doc.path));
+        $("lista").append(link);
+      }
+    }
+  }
+  function selectSection(key, selected) {
+    if (busy) return;
+    section = key;
+    $("buscar").value = "";
+    $("equipo").value = "";
+    $("movil-seccion").textContent = titles[key];
+    for (const tab of document.querySelectorAll("[data-section]")) {
+      if (tab.dataset.section === key) tab.setAttribute("aria-current", "page");
+      else tab.removeAttribute("aria-current");
+    }
+    const entries = inSection(key);
+    goTo(selected || entries.find(doc => doc.id === lastSelection[key]) || entries[0], false);
+  }
+  function resolveLink(path, doc) {
+    if (!path || /^[#/\\]|[\u0000-\u001f]|^[a-z][a-z0-9+.-]*:/i.test(path)) return null;
+    const parts = doc.id.split("/").slice(0,-1);
+    for (const part of path.split(/[?#]/)[0].split("/")) {
+      if (!part || part === ".") continue;
+      if (part === "..") {
+        if (!parts.length) return null;
+        parts.pop();
+      }
+      else parts.push(part);
+    }
+    return parts.join("/");
+  }
+  // El Markdown se interpreta en nodos de texto; los destinos nunca se copian a href.
+  function inline(container, text, doc) {
+    const pattern = /`([^`\n]+)`|\[([^\]\n]+)\]\(([^)\n]+)\)|\*\*([^*\n]+)\*\*|\*([^*\n]+)\*/g;
+    let previous = 0;
+    for (const match of text.matchAll(pattern)) {
+      container.append(text.slice(previous, match.index));
+      if (match[1]) container.append(element("code", match[1]));
+      else if (match[2]) {
+        const id = resolveLink(match[3], doc);
+        if (byId.has(id)) {
+          const target = byId.get(id);
+          const link = button(match[2], () => {
+            selectSection(target.section, target);
+            $("documento-titulo").focus();
+          }, "inline-link");
+          container.append(link);
+        } else if (localMaps.has(id)) {
+          const link = element("a", match[2]);
+          link.href = id;
+          link.target = "_blank";
+          link.rel = "noopener noreferrer";
+          container.append(link);
+        } else {
+          container.append(match[2], element("span", " (" + match[3] + ")", "source-link"));
+        }
+      } else container.append(element(match[4] ? "strong" : "em", match[4] || match[5]));
+      previous = match.index + match[0].length;
+    }
+    container.append(text.slice(previous));
+  }
+  function renderMarkdown(doc, body) {
+    const root = document.createDocumentFragment();
+    const lines = cleanLines(body.replace(/^\uFEFF/,"")).split("\n");
+    let paragraph = [], list = null, i = 0;
+    const flush = () => {
+      if (paragraph.length) {
+        const p = element("p");
+        inline(p, paragraph.join(" "), doc);
+        root.append(p);
+        paragraph = [];
+      }
+    };
+    while (i < lines.length) {
+      const line = lines[i++], trimmed = line.trim();
+      const heading = /^(#{1,6})\s+(.+)$/.exec(trimmed);
+      const item = /^(\d+[.)]|[-*])\s+(.+)$/.exec(trimmed);
+      if (!trimmed) { flush(); list = null; continue; }
+      if (/^```/.test(trimmed)) {
+        flush(); list = null;
+        const code = [];
+        while (i < lines.length && !/^\s*```/.test(lines[i])) code.push(lines[i++]);
+        if (i < lines.length) i++;
+        root.append(element("pre", code.join("\n")));
+      } else if (heading) {
+        flush(); list = null;
+        if (heading[1] === "#" && !root.childNodes.length && titleOf(doc) === heading[2].trim()) continue;
+        const h = element("h" + Math.min(6,Math.max(3,heading[1].length + 1)));
+        inline(h, heading[2], doc);
+        root.append(h);
+      } else if (trimmed.startsWith("|") && /^\s*\|(?:\s*:?-{3,}:?\s*\|)+\s*$/.test(lines[i] || "")) {
+        flush(); list = null; i++;
+        const wrap = element("div", undefined, "table-wrap"), table = element("table");
+        const addRow = (source, header, target) => {
+          const row = element("tr");
+          for (const val of source.trim().replace(/^\||\|$/g, "").split("|")) {
+            const cell = element(header ? "th" : "td");
+            if (header) cell.scope = "col";
+            inline(cell, val.trim(), doc);
+            row.append(cell);
+          }
+          target.append(row);
+        };
+        addRow(trimmed,true,table.createTHead());
+        const tbody = table.createTBody();
+        while (i < lines.length && /^\s*\|/.test(lines[i])) addRow(lines[i++],false,tbody);
+        wrap.tabIndex = 0;
+        wrap.setAttribute("role", "region");
+        wrap.setAttribute("aria-label", "Tabla de " + (table.rows[0]?.cells[0]?.textContent || "referencia"));
+        wrap.append(table); root.append(wrap);
+      } else if (item) {
+        flush();
+        const tag = /^\d/.test(item[1]) ? "ol" : "ul";
+        if (!list || list.localName !== tag) {
+          list = element(tag);
+          if (tag === "ol") list.start = Number.parseInt(item[1], 10);
+          root.append(list);
+        }
+        const li = element("li");
+        inline(li, item[2], doc);
+        list.append(li);
+      } else if (trimmed.startsWith(">")) {
+        flush(); list = null;
+        const quote = element("blockquote");
+        inline(quote, trimmed.replace(/^>\s?/, ""), doc);
+        root.append(quote);
+      } else if (list && /^\s+/.test(line)) {
+        list.lastElementChild.append(" ");
+        inline(list.lastElementChild, trimmed, doc);
+      } else {
+        list = null; paragraph.push(trimmed);
+      }
+    }
+    flush();
+    return root;
+  }
+
+  function renderReader() {
+    const doc = current;
+    $("cabecera").hidden = !doc;
+    $("vacio").hidden = Boolean(doc);
+    $("contenido").hidden = !doc || (mode !== "lectura" && mode !== "fuente");
+    $("trabajo").hidden = !doc || !$("contenido").hidden;
+    if (!doc) return;
+    const onDisk = files.conectado(doc.root) && live.has(doc.id) && !unavailable.has(doc.id);
+    $("origen").dataset.disco = String(onDisk);
+    $("origen").textContent = onDisk ? "Vinculado al disco" : "Copia de consulta";
+    $("contexto").textContent = section === "roles" ? "Equipo " + teams[doc.team] : titles[section];
+    $("documento-titulo").textContent = titleOf(doc);
+    $("ruta").textContent = doc.path;
+    $("descripcion").hidden = doc.section !== "roles";
+    $("descripcion").textContent = doc.section === "roles" ? descriptionOf(doc) : "";
+    $("conectar").hidden = !files.soportado || mode === "revision" || mode === "edicion";
+    $("conectar").textContent = onDisk ? "Volver a vincular carpeta" : "Vincular carpeta";
+    $("editar").hidden = !["lectura","fuente"].includes(mode);
+    $("editar").textContent = drafts.has(doc.id) ? "Retomar borrador" : files.soportado ? "Editar original" : "Preparar copia";
+    $("editar").disabled = Boolean(files.soportado && !onDisk && !drafts.has(doc.id));
+    $("fuente").hidden = $("editar").hidden;
+    $("fuente").setAttribute("aria-pressed",String(mode === "fuente"));
+    $("fuente").textContent = mode === "fuente" ? "Volver a lectura" : "Ver fuente";
+    if (!$("contenido").hidden) {
+      const raw = rawOf(doc);
+      if (mode === "fuente") $("contenido").replaceChildren(element("pre",raw));
+      else $("contenido").replaceChildren(renderMarkdown(doc, files.separar(doc,raw).cuerpo));
+      if (unavailable.has(doc.id)) message(unavailable.get(doc.id), true);
+      else if (!files.soportado && !$("aviso").textContent)
+        message("Este navegador permite descargar una copia editada. Para guardar en el original, abrí la guía en Chrome o Edge de escritorio y vinculá su carpeta.");
+    } else if (mode === "edicion") renderEditor();
+    else renderReview();
+  }
+  function freeze(value, announcement) {
+    busy = value;
+    document.querySelector(".sectionbar").inert = value;
+    $("indice").inert = value;
+    $("indice-movil").disabled = value;
+    $("lector").setAttribute("aria-busy",String(value));
+    $("cabecera").inert = value;
+    $("trabajo").inert = value;
+    if (announcement) message(announcement);
+  }
+  async function loadRoot(root) {
+    for (const doc of docs.filter(item => item.root === root)) {
+      try {
+        const raw = await files.leer(doc);
+        files.separar(doc,raw);
+        live.set(doc.id,raw);
+        unavailable.delete(doc.id);
+      } catch (err) {
+        live.delete(doc.id);
+        unavailable.set(doc.id, "Lectura desde el disco pendiente. Se muestra la copia de consulta. " + err.message);
+      }
+    }
+  }
+  async function connect() {
+    if (!current || busy) return;
+    const root = current.root;
+    freeze(true, "Elegí en el navegador la carpeta que contiene guia.html.");
+    try {
+      const connection = await files.conectar(root);
+      if (connection.cambioDeDestino) {
+        for (const [id, draft] of drafts) {
+          if (byId.get(id).root === root) draft.newDestination = true;
+        }
+      }
+      await loadRoot(root);
+      renderIndex(); renderReader();
+      if (!unavailable.has(current.id)) message("Carpeta «" + files.nombre(root) + "» vinculada. Se volvió a leer el contenido del disco.");
+    } catch (err) {
+      renderReader();
+      message(err.message, true);
+    } finally { freeze(false); }
+  }
+  async function startEditing() {
+    if (!current || busy) return;
+    const doc = current;
+    freeze(true);
+    try {
+      const old = drafts.get(doc.id);
+      const raw = await files.leer(doc);
+      if (files.conectado(doc.root)) {
+        live.set(doc.id, raw);
+        unavailable.delete(doc.id);
+      }
+      if (old && old.base !== raw && files.conectado(doc.root)) old.conflict = true;
+      if (!old) drafts.set(doc.id, {base:raw, body:files.separar(doc,raw).cuerpo, conflict:false});
+      mode = "edicion";
+      message();
+      renderReader();
+    } catch (err) { message(err.message, true); }
+    finally { freeze(false); }
+    if (mode === "edicion") $("borrador").focus();
+  }
+  function leaveDraft() {
+    const draft = drafts.get(current.id);
+    const changed = files.proponer(current,draft.base,draft.body) !== draft.base;
+    if (!changed) drafts.delete(current.id);
+    mode = "lectura";
+    message(changed ? "Tu borrador sigue disponible en esta pestaña. Elegí «Retomar borrador» para continuar." : "");
+    renderReader(); $("documento-titulo").focus();
+  }
+  function download(doc, draft) {
+    const full = files.proponer(doc,draft.base,draft.body);
+    const url = URL.createObjectURL(new Blob([full],{type:"text/markdown;charset=utf-8"}));
+    const link = element("a");
+    link.href = url;
+    link.download = doc.path.split("/").at(-1).replace(/\.md$/i,"-copia.md");
+    document.body.append(link); link.click(); link.remove();
+    setTimeout(() => URL.revokeObjectURL(url),1000);
+    message("Se solicitó la descarga de la copia. El original sigue en el disco.");
+  }
+  function details(label, body) {
+    const box = element("details",undefined,"original");
+    box.append(element("summary",label),element("pre",body));
+    return box;
+  }
+  function renderEditor() {
+    const doc = current, draft = drafts.get(doc.id);
+    const role = doc.section === "roles";
+    const work = $("trabajo"), connected = files.conectado(doc.root);
+    const title = element("h3",role ? "Editar cuerpo del rol" : "Editar Markdown");
+    const info = element("p", role
+      ? "El nombre, la descripción y los metadatos de integración se conservan en la cabecera de la ficha."
+      : "La revisión muestra el texto que cambiará en este documento.");
+    const field = element("label", "Tu borrador");
+    field.htmlFor = "borrador";
+    const area = element("textarea");
+    area.id = "borrador"; area.value = draft.body; area.spellcheck = false;
+    const original = files.separar(doc,draft.base).cuerpo;
+    const actions = element("div",undefined,"actions");
+    const review = button("Revisar cambios", () => {
+      mode = "revision"; message(); renderReader(); $("revision-titulo").focus();
+    },"btn primary","revisar");
+    const updateReview = () => {
+      review.disabled = draft.newDestination || draft.conflict || cleanLines(original) === cleanLines(draft.body);
+    };
+    area.addEventListener("input", () => { draft.body = area.value; updateReview(); });
+    updateReview();
+    field.append(area);
+    actions.append(review,button("Descargar copia",() => download(doc,draft),"btn","descargar"),
+      button("Volver a lectura",leaveDraft,"btn"));
+    work.replaceChildren(title,info,details("Ver original al iniciar la edición",original),field,actions);
+    if (!connected) message("Estás preparando una copia descargable. El Markdown original se conserva en su carpeta.");
+    if (draft.newDestination) {
+      message("Cambió la carpeta de destino. Tu borrador viene de otra copia. Verificá la ruta " + doc.path +
+        " dentro de «" + files.nombre(doc.root) + "».",true);
+      work.append(button("Revisar destino y comparar con el disco",rebase,"btn","comparar-actual"));
+    } else if (draft.conflict) {
+      message("Conflicto de edición. El original cambió en el disco. Tu borrador sigue disponible abajo.",true);
+      work.append(button("Comparar con el original actual",rebase,"btn","comparar-actual"));
+    }
+  }
+  async function rebase() {
+    if (busy) return;
+    const doc = current, draft = drafts.get(doc.id);
+    freeze(true);
+    try {
+      if (!files.conectado(doc.root)) throw new Error("Volvé a lectura y vinculá la carpeta para leer el original actual.");
+      const fresh = await files.leer(doc);
+      live.set(doc.id,fresh);
+      const newDestination = draft.newDestination;
+      draft.base = fresh;
+      draft.newDestination = false;
+      draft.conflict = false;
+      mode = "revision";
+      renderReader();
+      message(newDestination
+        ? "Revisá la propuesta para " + doc.path + " en la nueva carpeta «" + files.nombre(doc.root) + "». Confirmar guardará allí."
+        : "Comparación con la última versión del disco. Revisá todas las diferencias antes de confirmar.");
+    } catch (err) { message(err.message,true); }
+    finally { freeze(false); }
+    if (mode === "revision") $("revision-titulo").focus();
+  }
+  // Se omiten los bloques idénticos al comienzo y al final. Lo intermedio se muestra completo.
+  function differences(a,b) {
+    const left = cleanLines(a).split("\n"), right = cleanLines(b).split("\n");
+    let start = 0, endA = left.length, endB = right.length;
+    while (start < endA && start < endB && left[start] === right[start]) start++;
+    while (endA > start && endB > start && left[endA-1] === right[endB-1]) { endA--; endB--; }
+    return [left.slice(start,endA), right.slice(start,endB)];
+  }
+  function renderReview() {
+    const doc = current, draft = drafts.get(doc.id);
+    const whole = files.proponer(doc,draft.base,draft.body);
+    const original = files.separar(doc,draft.base).cuerpo, proposed = files.separar(doc,whole).cuerpo;
+    const title = element("h3","Revisar cambios");
+    title.id = "revision-titulo"; title.tabIndex = -1;
+    const connected = files.conectado(doc.root);
+    const impact = element("p", !connected ? "La descarga crea una copia del Markdown en tu equipo."
+      : doc.section === "roles" ? "Guardar modifica el cuerpo de esta ficha compartida por Claude y Codex."
+      : "Guardar actualiza las instrucciones de este archivo para las sesiones que lo lean.");
+    const path = element("code", connected ? files.nombre(doc.root) + "/" + doc.path : doc.path, "path");
+    const changes = element("div",undefined,"compare");
+    const [removed,added] = differences(original,proposed);
+    for (const [label,rows,cls] of [["Original",removed,"del"],["Propuesta",added,"add"]]) {
+      const side = element("div");
+      side.append(element("h4",label),element("pre",rows.length ? rows.join("\n") : "Sin líneas en este tramo.",cls));
+      changes.append(side);
+    }
+    const actions = element("div",undefined,"actions");
+    if (connected) {
+      const save = button("Confirmar guardado",commit,"btn primary","confirmar");
+      save.disabled = draft.newDestination || draft.conflict || whole === draft.base;
+      actions.append(save);
+    }
+    actions.append(button("Volver al borrador",() => { mode = "edicion"; message(); renderReader(); $("borrador").focus(); },"btn","volver-editor"),
+      button("Descargar copia",() => download(doc,draft),"btn","descargar"));
+    $("trabajo").replaceChildren(title,path,impact,changes,details("Ver propuesta completa",whole),actions);
+  }
+  async function commit() {
+    if (busy || mode !== "revision" || !current) return;
+    const doc = current, draft = drafts.get(doc.id);
+    if (!draft || draft.newDestination || draft.conflict || !files.conectado(doc.root)) return;
+    freeze(true,"Comprobando el archivo en el disco…");
+    try {
+      const stored = await files.guardar(doc,draft.base,draft.body);
+      live.set(doc.id,stored);
+      drafts.delete(doc.id);
+      unavailable.delete(doc.id);
+      mode = "lectura";
+      renderIndex(); renderReader();
+      message("Guardado y verificado en el disco. " + doc.id);
+    } catch (err) {
+      if (err.code === "conflicto") draft.conflict = true;
+      mode = "edicion"; renderReader();
+      message((draft.conflict ? "Conflicto de edición. " : "") + err.message + " Tu borrador se conserva.",true);
+    } finally { freeze(false); }
+    if (mode === "lectura") $("documento-titulo").focus(); else $("borrador").focus();
+  }
+  for (const tab of document.querySelectorAll("[data-section]")) {
+    tab.querySelector("small").textContent = String(inSection(tab.dataset.section).length);
+    tab.addEventListener("click",() => selectSection(tab.dataset.section));
+  }
+  for (const [key,name] of Object.entries(teams)) {
+    const option = element("option",name);
+    option.value = key;
+    $("equipo").append(option);
+  }
+  $("indice-movil").addEventListener("click",() => toggleIndex(!$("indice").classList.contains("abierto"),true));
+  for (const [id,event] of [["buscar","input"],["equipo","change"]]) {
+    $(id).addEventListener(event,() => { renderIndex(true); renderReader(); });
+  }
+  $("fuente").addEventListener("click",() => {
+    mode = mode === "fuente" ? "lectura" : "fuente"; message(); renderReader();
+  });
+  $("conectar").addEventListener("click",connect);
+  $("editar").addEventListener("click",startEditing);
+  window.addEventListener("beforeunload",event => {
+    if ([...drafts.entries()].some(([id,draft]) =>
+      cleanLines(files.separar(byId.get(id),draft.base).cuerpo) !== cleanLines(draft.body))) {
+      event.preventDefault();
+      event.returnValue = "";
+    }
+  });
+  selectSection("instrucciones");
+  if (files.soportado) (async () => {
+    freeze(true);
+    try {
+      await files.restaurar();
+      for (const root of new Set(docs.map(doc => doc.root))) if (files.conectado(root)) await loadRoot(root);
+      renderIndex(); renderReader();
+    } catch (err) { message(err.message || "Para editar, vinculá de nuevo la carpeta del documento.",true); }
+    finally { freeze(false); }
+  })();
+})();
+</script>
+</body>
+</html>

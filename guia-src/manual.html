@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="es-UY">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src 'none'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <title>Guía de Oficina</title>
+  <style>
+    :root {
+      --ink:#1e3444; --navy:#1c3446; --teal:#27685e; --green-bg:#e5eee8;
+      --paper:#fffefa; --canvas:#f5f3ed; --line:#d8d9cd; --muted:#536269;
+      --serif:Georgia, "Times New Roman", serif;
+      --sans:"Source Sans 3","Segoe UI",Arial,sans-serif;
+      --mono:"IBM Plex Mono",Consolas,monospace;
+      font-family:var(--sans); color:var(--ink); background:var(--canvas);
+      font-size:16px; line-height:1.5;
+    }
+    * {box-sizing:border-box}
+    body {margin:0}
+    button,input,textarea,select {font:inherit; color:inherit}
+    button {cursor:pointer}
+    button:disabled {opacity:.62; cursor:default}
+    a {color:var(--teal)}
+    :focus-visible {outline:3px solid #b65419; outline-offset:3px}
+    [hidden] {display:none!important}
+    .sr {position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap}
+    .skip {position:fixed; z-index:4; left:1rem; top:-5rem; padding:.6rem 1rem; background:white}
+    .skip:focus {top:.4rem}
+    .wrap {width:min(1240px, calc(100% - 6vw)); margin:0 auto}
+    .mast {background:var(--navy); color:#fffefa}
+    .mast-inner,.brand,.actions,.metadata,.sectionbar,.panel-tools,.index-heading,.notice-row,.mobile-bar {display:flex; align-items:center}
+    .mast-inner {min-height:64px; justify-content:space-between; gap:16px}
+    .brand {gap:12px; font-family:var(--serif); font-size:25px; letter-spacing:-.035em}
+    .brand small {border-left:1px solid #91a5af; padding-left:14px; margin-left:3px; font:13px var(--sans); letter-spacing:.025em; color:#e0e7e8}
+    .book {position:relative; display:inline-block; width:26px; height:21px; color:#cfdbbd}
+    .book::before,.book::after {content:""; position:absolute; width:10px; height:16px; top:1px; border:1.8px solid; border-radius:1px 4px 1px 1px; transform:skewY(11deg)}
+    .book::before {left:1px}
+    .book::after {right:1px; transform:skewY(-11deg); border-radius:4px 1px 1px 1px}
+    .edition {color:#d8e2dc; font:12px var(--mono); letter-spacing:.025em}
+    .cover {padding:clamp(22px,3.6vw,48px) 0 0}
+    h1,h2,h3,h4,h5,h6,p {margin:0}
+    .cover h1 {font:normal clamp(39px,4.5vw,62px)/1.1 var(--serif); letter-spacing:-.055em}
+    .cover p {font-size:clamp(15px,1.45vw,18px); color:var(--muted); margin-top:8px}
+    .sectionbar {gap:clamp(8px,2.5vw,34px); border-bottom:1px solid #aeb6af; margin-top:clamp(16px,2.4vw,32px)}
+    .sectionbar button {position:relative; background:none; border:0; border-bottom:3px solid transparent; color:var(--muted); padding:12px 3px; font-weight:600; display:flex; gap:9px; align-items:center}
+    .sectionbar [aria-current="page"] {color:var(--teal); border-bottom-color:var(--teal)}
+    .sectionbar small {font:12px var(--mono); color:var(--muted)}
+    .sectionbar button:hover,.doc-link:hover {background:#e8ebe2}
+    main {display:grid; grid-template-columns:minmax(225px,27%) minmax(0,1fr); gap:clamp(18px,2.7vw,42px); padding:clamp(18px,2.3vw,34px) 0 5rem}
+    .index {min-width:0; align-self:start; position:sticky; top:14px; max-height:calc(100vh - 28px); overflow:auto; scrollbar-width:thin; scrollbar-color:#aeb6af transparent; padding:2px 4px 12px}
+    .index-heading {justify-content:space-between; gap:8px; margin-bottom:15px}
+    .index-heading h2 {font:normal 25px var(--serif); letter-spacing:-.035em}
+    .search-box {position:relative}
+    .search-box::before {content:""; position:absolute; left:13px; top:15px; width:10px; height:10px; border:1.7px solid var(--muted); border-radius:50%; pointer-events:none}
+    .search-box::after {content:""; position:absolute; left:23px; top:26px; width:7px; height:2px; background:var(--muted); transform:rotate(45deg); pointer-events:none}
+    input,select,textarea {border:1px solid #929e98; background:var(--paper); border-radius:4px}
+    input,select {width:100%; min-height:44px; padding:8px 10px}
+    input[type=search] {padding-left:38px}
+    .filter {display:grid; gap:4px; margin-top:12px; font-size:14px; font-weight:600}
+    .filter select {font-weight:400}
+    .result {color:var(--muted); font-size:13px; margin:13px 0}
+    .group-title {display:flex; align-items:center; gap:8px; color:var(--muted); font:600 12px var(--sans); text-transform:uppercase; letter-spacing:.085em; margin:22px 0 8px 3px}
+    .group-title::after {content:""; flex:1; height:1px; background:var(--line)}
+    .group-title span {font:12px var(--mono); letter-spacing:0}
+    .doc-link {display:block; width:100%; position:relative; border:0; border-left:3px solid transparent; border-radius:0 3px 3px 0; background:transparent; text-align:left; padding:10px 13px; min-height:44px; overflow-wrap:anywhere}
+    .doc-link[aria-current=true] {background:var(--green-bg); border-left-color:var(--teal); color:#194e48; font-weight:650}
+    .doc-link small {display:block; font:12px/1.5 var(--mono); color:var(--muted); margin-top:3px}
+    .folio {align-self:start; min-width:0; border:1px solid var(--line); border-top:3px solid var(--navy); border-radius:1px; background:var(--paper); box-shadow:0 2px 5px #243c4408}
+    .folio-head,.document,.work,.empty {padding:clamp(18px,2.7vw,40px)}
+    .folio-head {border-bottom:1px solid var(--line)}
+    .metadata {justify-content:space-between; gap:10px; flex-wrap:wrap; margin-bottom:15px}
+    .context {font:650 12px var(--sans); color:var(--teal); text-transform:uppercase; letter-spacing:.105em}
+    .origin {font-size:12px; display:inline-flex; align-items:center; gap:7px; color:var(--muted)}
+    .origin::before {content:""; display:inline-block; width:8px; height:8px; border:1.5px solid currentColor; border-radius:50%}
+    .origin[data-disco=true] {color:var(--teal)}
+    .origin[data-disco=true]::before {background:var(--teal)}
+    #documento-titulo {font:normal clamp(29px,3.4vw,47px)/1.1 var(--serif); letter-spacing:-.045em; overflow-wrap:anywhere}
+    .path {display:block; margin:9px 0 0; font:13px/1.6 var(--mono); color:var(--muted); overflow-wrap:anywhere}
+    .description {font-size:17px; line-height:1.5; margin-top:15px; max-width:72ch}
+    .panel-tools {flex-wrap:wrap; gap:9px; margin-top:19px}
+    .btn {display:inline-flex; justify-content:center; align-items:center; min-height:40px; padding:7px 13px; border:1px solid #97a29c; border-radius:4px; background:transparent; color:var(--ink); font-weight:600; font-size:14px}
+    .btn:hover {background:#e9eee7}
+    .primary {background:var(--navy); color:white; border-color:var(--navy)}
+    .primary:hover {background:#334f60}
+    .btn[aria-pressed=true] {background:var(--green-bg); color:#194e48; border-color:var(--teal)}
+    .notice:empty {display:none}
+    .notice {background:#ecf2e9; border-left:3px solid var(--teal); padding:10px 16px; font-size:14px; overflow-wrap:anywhere}
+    .notice[data-tipo=error] {background:#fff2e3; border-color:#914419; color:#6b3216}
+    .document {font:17px/1.64 var(--sans); overflow-wrap:anywhere}
+    .document > * {max-width:77ch; margin:0 0 1.05em}
+    .document > :last-child {margin-bottom:0}
+    .document h3,.document h4,.document h5,.document h6,.work h3,.empty h2 {font:normal 29px/1.2 var(--serif); letter-spacing:-.035em; margin:1.1em 0 .45em}
+    .document h4,.document h5,.document h6 {font-size:23px}
+    .document > :first-child,.work h3:first-child,.empty h2:first-child {margin-top:0}
+    .document ul,.document ol {padding-left:1.6em}
+    .document li+li {margin-top:5px}
+    .document blockquote {border-left:3px solid #86a59a; padding-left:1rem; color:var(--muted)}
+    code,pre,kbd {font-family:var(--mono)}
+    .document code {font-size:.87em; background:#f0f0e9; padding:.08em .24em; border-radius:2px}
+    pre {white-space:pre-wrap; overflow-wrap:anywhere; tab-size:4; font-size:14px; line-height:1.55}
+    .document pre,.compare pre,.original pre {padding:14px; border:1px solid var(--line); background:#f4f4ee; border-radius:3px}
+    .table-wrap {max-width:100%; overflow:auto}
+    table {border-collapse:collapse; width:100%; font:14px/1.55 var(--sans)}
+    th,td {text-align:left; vertical-align:top; padding:9px; border:1px solid var(--line); min-width:7em}
+    th {background:#edf0e8}
+    .inline-link {display:inline; background:none; padding:0; border:0; color:var(--teal); font:inherit; text-decoration:underline; text-underline-offset:.14em}
+    .source-link {font-size:.87em; color:var(--muted)}
+    .work {display:grid; gap:14px}
+    .work label {font-weight:600}
+    textarea {width:100%; min-height:300px; margin-top:6px; display:block; padding:13px; resize:vertical; font:15px/1.5 var(--mono)}
+    .help,.work p {color:var(--muted); font-size:15px}
+    .work h3 {margin:0}
+    .actions {gap:9px; flex-wrap:wrap}
+    .original summary {cursor:pointer; color:var(--teal); font-weight:600}
+    .original pre {max-height:350px; overflow:auto}
+    .compare {display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px}
+    .compare h4 {font-size:15px; margin-bottom:6px}
+    .compare pre {margin:0; max-height:420px; overflow:auto; min-height:52px}
+    .compare pre.del {border-top:3px solid #9b5943}
+    .compare pre.add {border-top:3px solid var(--teal)}
+    .mobile-bar {display:none}
+    @media(max-width:760px) {
+      .wrap {width:calc(100% - 32px)}
+      .mast-inner {min-height:51px}
+      .brand {font-size:22px; gap:8px}
+      .brand small {display:none}
+      .edition {font-size:11px}
+      .sectionbar {justify-content:space-between}
+      .sectionbar button {gap:5px; font-size:15px}
+      main {display:block; padding-top:14px}
+      .mobile-bar {display:flex; justify-content:space-between; gap:10px; margin-bottom:12px}
+      .mobile-bar span {font-size:13px; color:var(--muted)}
+      .index {display:none; position:static; max-height:none; margin-bottom:14px; padding:12px 2px 16px; border-bottom:1px solid var(--line)}
+      .index.abierto {display:block}
+      .index-heading h2 {font-size:22px}
+      .cover h1 {font-size:40px}
+      .metadata {margin-bottom:11px}
+      .document {font-size:16px}
+      .compare {grid-template-columns:minmax(0,1fr)}
+      .btn {min-height:44px}
+      .table-wrap {overscroll-behavior-x:contain}
+    }
+    @media(max-width:350px) {.sectionbar {gap:3px}.sectionbar small {display:none}}
+  </style>
+</head>
+<body>
+  <a class="skip" href="#lector">Ir al documento</a>
+  <header class="mast"><div class="wrap mast-inner">
+    <div class="brand"><span class="book" aria-hidden="true"></span>Oficina<small>Manual de trabajo</small></div>
+    <span class="edition">Edición portátil</span>
+  </div></header>
+  <div class="wrap">
+    <div class="cover">
+      <h1>Guía de Oficina</h1>
+      <p>Consultá las reglas de trabajo, las fichas de los equipos y el mapa de carpetas.</p>
+    </div>
+    <nav class="sectionbar" aria-label="Secciones del manual">
+      <button type="button" data-section="instrucciones">Instrucciones <small></small></button>
+      <button type="button" data-section="roles">Roles <small></small></button>
+      <button type="button" data-section="carpetas">Carpetas <small></small></button>
+    </nav>
+    <main>
+      <div class="mobile-bar"><button type="button" id="indice-movil" class="btn" aria-controls="indice" aria-expanded="false">Abrir índice</button><span id="movil-seccion"></span></div>
+      <aside class="index" id="indice" aria-labelledby="titulo-indice">
+        <div class="index-heading"><h2 id="titulo-indice">Índice</h2></div>
+        <label for="buscar" class="sr">Buscar en esta sección</label>
+        <div class="search-box"><input type="search" id="buscar" placeholder="Buscar en esta sección" autocomplete="off"></div>
+        <label class="filter" id="filtro" hidden>Equipo<select id="equipo"><option value="">Todos los equipos</option></select></label>
+        <p class="result" id="resultados" role="status"></p>
+        <nav id="lista" aria-label="Documentos de la sección"></nav>
+      </aside>
+      <article class="folio" id="lector" tabindex="-1" aria-label="Documento seleccionado">
+        <header class="folio-head" id="cabecera">
+          <div class="metadata"><span class="context" id="contexto"></span><span class="origin" id="origen"></span></div>
+          <h2 id="documento-titulo" tabindex="-1"></h2>
+          <code class="path" id="ruta"></code>
+          <p class="description" id="descripcion" hidden></p>
+          <div class="panel-tools">
+            <button class="btn primary" type="button" id="conectar"></button>
+            <button class="btn" type="button" id="editar"></button>
+            <button class="btn" type="button" id="fuente" aria-pressed="false">Ver fuente</button>
+          </div>
+        </header>
+        <p id="aviso" class="notice" role="status" aria-live="polite" aria-atomic="true"></p>
+        <div id="contenido" class="document"></div>
+        <div id="trabajo" class="work" hidden></div>
+        <div id="vacio" class="empty" hidden><h2>Sin resultados</h2><p>Probá otra búsqueda o cambiá el equipo en el índice.</p></div>
+      </article>
+    </main>
+  </div>
+  <script type="application/json" id="catalogo">@@CATALOGO@@</script>
+  <script>@@PERSISTENCIA@@</script>
+  <script>@@INTERFAZ@@</script>
+</body>
+</html>
